@@ -9,7 +9,7 @@ Markdown 编译工具 / Simple toolkit for Markdown
 
 |                md2art                 |             md2slide              |
 | :-----------------------------------: | :-------------------------------: |
-| [![article](/example/article/article.png)](/example/article/article.png) | [![slide](/example/slide/slide.png)](/example/slide/slide.png) |
+| [![article](example/demo/article.png)](example/article/article.pdf) | [![slide](example/demo/slide.png)](example/slide/slide.pdf) |
 
 ## 特点
 
