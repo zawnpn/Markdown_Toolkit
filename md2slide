@@ -1,0 +1,8 @@
+#!/bin/sh
+mkdir -p .md_backup
+currentTime=`date "+%Y%m%d%H%M%S"`
+cp $1 .md_backup/$currentTime"_"$1
+cp $1 ./"tmp_"$1
+sed -i 's/!\[.*\](\(.*\))/!\[\](\1)/g' "tmp_"$1
+pandoc "tmp_"$1 -o $2 -t beamer --pdf-engine=xelatex
+rm "tmp_"$1
