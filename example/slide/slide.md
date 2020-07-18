@@ -13,9 +13,9 @@ CJKoptions:
 header-includes:
   - |
     ````{=latex}
-	\usetheme{Madrid}
-	\linespread{1.2}
-	%\usepackage{some package}
+    \usetheme{Madrid}
+    \linespread{1.2}
+    %\usepackage{some package}
     ````
 ---
 

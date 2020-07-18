@@ -12,7 +12,7 @@ CJKoptions:
 header-includes:
   - |
     ````{=latex}
-	%\usepackage{some package}
+    %\usepackage{some package}
     ````
 ---
 
