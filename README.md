@@ -7,8 +7,8 @@ Markdown 编译工具 / Simple toolkit for Markdown
 
 ## Preview
 
-|                md2art                 |             md2slide              |
-| :-----------------------------------: | :-------------------------------: |
+|                         MD → Article                         |                         MD → Slide                          |
+| :----------------------------------------------------------: | :---------------------------------------------------------: |
 | [![article](example/demo/article.png)](example/article/article.pdf) | [![slide](example/demo/slide.png)](example/slide/slide.pdf) |
 
 ## 特点
