@@ -1,0 +1,120 @@
+#!/bin/bash
+# ------------------------------------------------------------------
+# [Author] Wanpeng Zhang 
+#          Markdown 编译工具 / Simple toolkit for Markdown
+#          https://github.com/zawnpn/Markdown_Toolkit
+# ------------------------------------------------------------------
+
+SUBJECT=markdown-toolkit
+VERSION=0.1.0
+USAGE="
+USAGE
+    mdtool [-hv] [-sa] input_file output_file
+OPTIONS
+    -h                               print help information
+    -v                               print version
+    -s [input_file] [output_file]    build markdown in slide format
+    -a [input_file] [output_file]    build markdown in article format
+EXAMPLES
+    mdtool -s slide.md slide.pdf
+    mdtool -a article.md article.pdf
+"
+
+# --- Option processing --------------------------------------------
+if [ $# == 0 ] ; then
+    echo "$USAGE"
+    exit 1;
+fi
+
+while getopts ":vhsa" optname
+  do
+    case "$optname" in
+      "v")
+        echo "Version $VERSION"
+        exit 0;
+        ;;
+      "h")
+        echo "$USAGE"
+        exit 0;
+        ;;
+	  "s")
+        flag="slide"
+        ;;
+	  "a")
+        flag="article"
+        ;;
+      "?")
+        echo "Unknown option $OPTARG"
+        exit 0;
+        ;;
+      ":")
+        echo "No argument value for option $OPTARG"
+        exit 0;
+        ;;
+      *)
+        echo "Unknown error while processing options"
+        exit 0;
+        ;;
+    esac
+  done
+
+shift $(($OPTIND - 1))
+
+# -----------------------------------------------------------------
+
+LOCK_FILE=/tmp/${SUBJECT}.lock
+
+if [ -f "$LOCK_FILE" ]; then
+	echo "Script is already running"
+	exit
+fi
+
+# -----------------------------------------------------------------
+trap "rm -f $LOCK_FILE" EXIT
+touch $LOCK_FILE 
+
+# -----------------------------------------------------------------
+#  SCRIPT LOGIC GOES HERE
+# -----------------------------------------------------------------
+in_file=$1
+out_file=$2
+
+# get input file name & path
+IFS='/' read -ra in_tmp <<< "$in_file"
+num=${#in_tmp[@]}
+in_filename=${in_tmp[-1]}
+in_filewd=""
+num=`expr $num - 1`
+for ((i=0;i<num;i++))
+{
+    if [ $i = 0 ]; then
+        in_filewd=$in_filewd${in_tmp[i]}
+    else    
+        in_filewd=$in_filewd'/'${in_tmp[i]}
+    fi
+}
+
+# make backup dir
+if [ ! -d "$HOME/.md_backup" ]; then
+	mkdir -p $HOME/.md_backup
+fi
+BACKUP_DIR=$HOME/.md_backup
+
+# backup
+currentTime=`date "+%Y%m%d%H%M%S"`
+cp $in_file $BACKUP_DIR/$currentTime"_"$in_filename
+
+# make tmp file (safe build)
+tmp_file="tmp_"$in_filename
+cp $in_file ./$tmp_file
+
+# strip
+sed -i 's/!\[.*\](\(.*\))/!\[\](\1)/g' $tmp_file
+
+# build
+if [ "$flag" = "slide" ]; then
+	pandoc $tmp_file -o $out_file -t beamer --pdf-engine=xelatex --resource-path=.:$in_filewd
+elif [ "$flag" = "article" ]; then
+	pandoc $tmp_file -o $out_file  --template=$(dirname $0)/md_template/article-template.tex --pdf-engine=xelatex --resource-path=.:$in_filewd
+fi
+rm $tmp_file
