@@ -33,6 +33,7 @@ Markdown 编译工具 / Simple toolkit for Markdown
 
 ```shell
 git clone https://github.com/zawnpn/Markdown_Toolkit.git
+chmod +x ./mdtool
 echo 'export PATH=/path/to/Markdown_Toolkit:$PATH' >> ~/.bashrc 
 source ~/.bashrc
 ```
