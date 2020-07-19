@@ -37,10 +37,10 @@ while getopts ":vhsa" optname
         echo "$USAGE"
         exit 0;
         ;;
-	  "s")
+      "s")
         flag="slide"
         ;;
-	  "a")
+      "a")
         flag="article"
         ;;
       "?")
@@ -74,7 +74,7 @@ trap "rm -f $LOCK_FILE" EXIT
 touch $LOCK_FILE 
 
 # -----------------------------------------------------------------
-#  SCRIPT LOGIC GOES HERE
+#  SCRIPT LOGIC
 # -----------------------------------------------------------------
 in_file=$1
 out_file=$2
