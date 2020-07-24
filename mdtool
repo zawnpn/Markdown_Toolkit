@@ -104,12 +104,11 @@ BACKUP_DIR=$HOME/.md_backup
 currentTime=`date "+%Y%m%d%H%M%S"`
 cp $in_file $BACKUP_DIR/$currentTime"_"$in_filename
 
-# make tmp file (safe build)
-tmp_file="tmp_"$in_filename
-cp $in_file ./$tmp_file
-
 # strip
-sed -i 's/!\[.*\](\(.*\))/!\[\](\1)/g' $tmp_file
+tmp_file="tmp_"$in_filename
+# cp $in_file ./$tmp_file
+# sed -i 's/!\[.*\](\(.*\))/!\[\](\1)/g' $tmp_file
+perl -pe 's/!\[.*?\](\(.*?\))/!\[\]\1/g' $in_file > $tmp_file
 
 # build
 if [ "$flag" = "slide" ]; then
