@@ -29,12 +29,12 @@ Markdown 编译工具 / Simple toolkit for Markdown
 
 安装好后，请按照软件说明添加路径到`PATH`中，确保能在终端中直接执行命令`pandoc`和`xelatex`。
 
-之后，请将本项目clone至你本地任意目录，并添加至`PATH`（注意将`[path~to~Markdown_Toolkit]`替换为你的具体的`Markdown_Toolkit`路径）
+之后，请将本项目clone至你本地任意目录，并添加至`PATH`（注意将`<path~to~Markdown_Toolkit>`替换为你的具体的`Markdown_Toolkit`路径）
 
 ```shell
 git clone https://github.com/zawnpn/Markdown_Toolkit.git
 chmod +x ./mdtool
-echo 'export PATH=[path~to~Markdown_Toolkit]:$PATH' >> ~/.bashrc 
+echo 'export PATH=$PATH:<path~to~Markdown_Toolkit>' >> ~/.bashrc 
 source ~/.bashrc
 ```
 
