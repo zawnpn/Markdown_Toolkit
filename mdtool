@@ -82,7 +82,8 @@ out_file=$2
 # get input file name & path
 IFS='/' read -ra in_tmp <<< "$in_file"
 num=${#in_tmp[@]}
-in_filename=${in_tmp[-1]}
+# in_filename=${in_tmp[-1]} # bug in some bash version
+in_filename=${in_tmp[${#in_tmp[@]}-1]}
 in_filewd=""
 num=`expr $num - 1`
 for ((i=0;i<num;i++))
